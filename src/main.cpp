@@ -101,7 +101,6 @@ atomic<bool> should_stop{false};
 
 void signal_handler(int signum) {
     if (signum == SIGINT) {
-        cout << "\nCtrl+C reçu. Arrêt...\n";
         should_stop = true;
     }
 }
@@ -144,7 +143,9 @@ int main(int argc, char* argv[]) {
             cout << "PID processus enfant : " << getpid() << endl;
             // Processus enfant - boucle infinie
             while (!should_stop);
-            return 0;
+
+            cout << "Fin " << getpid() << endl;
+            exit(0);
         }
     }
 
@@ -170,9 +171,10 @@ int main(int argc, char* argv[]) {
 
     // Terminer les enfants
     for (auto pid : pids) {
-        kill(pid, SIGTERM);
         waitpid(pid, nullptr, 0);
     }
+
+    cout << "Fin " << getpid() << endl;
 
     return 0;
 }
