@@ -144,7 +144,7 @@ int main(int argc, char* argv[]) {
             cout << "PID processus enfant : " << getpid() << endl;
             // Processus enfant - boucle infinie
             while (!should_stop);
-            exit(0);
+            return 0;
         }
     }
 
